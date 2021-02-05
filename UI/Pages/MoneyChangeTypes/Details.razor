@@ -1,0 +1,56 @@
+﻿@page "/recordtypes/{id}"
+@inject IUnitOfWork _unit;
+@inject NavigationManager _navigator;
+Change id: @id
+<button @onclick="BackToList">Back to list</button>
+
+<h3>Details</h3>
+@if (null == record)
+{
+    <LoadingMessage Message="Loading data.."></LoadingMessage>
+}
+else
+{
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    Name
+                </th>               
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    @record.Name
+                </td>
+               
+                <td>
+                    <a href="recordtypes/edit/@record.Id" class="btn btn-primary">Edit</a>
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+
+}
+
+
+@code {
+    [Parameter]
+    public string id { get; set; }
+    private MoneyChangeType record = new MoneyChangeType();
+    protected async override Task OnInitializedAsync()
+    {
+        record = await _unit.MoneyChangeTypes.GetAsync(Convert.ToInt32(id));//todo
+    }
+    private void BackToList()
+    {
+        _navigator.NavigateTo("/recordtypes/");
+    }
+    public void GoToEdit()
+    {
+        _navigator.NavigateTo($"/recordtypes/edit/{record.Id}");
+    }
+
+}

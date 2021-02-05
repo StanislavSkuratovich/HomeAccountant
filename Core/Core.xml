@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Core</name>
+    </assembly>
+    <members>
+        <member name="T:Core.API.Controllers.RecordsController">
+            <summary>
+            Endpoint used to interact with the records of money changes in the database
+            </summary>
+        </member>
+        <member name="M:Core.API.Controllers.RecordsController.Get">
+            <summary>
+            Returns a list of all records
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Core.API.Controllers.RecordsController.Get(System.Int32)">
+            <summary>
+            Returns a record by id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Core.API.Controllers.RecordsController.ByMonth(System.DateTime)">
+            <summary>
+            Returns list of a month records of selected date
+            </summary>
+            <param name="date"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Core.API.Controllers.RecordsController.ByDay(System.DateTime)">
+            <summary>
+            Returns list of a day records of selected date
+            </summary>
+            <param name="date"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Core.API.Controllers.RecordsController.CreateRecord(Core.Data.Entities.MoneyChangeRecord)">
+            <summary>
+            creates a new record
+            </summary>
+            <param name="moneyChange"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Core.API.Controllers.RecordsController.UpdateRecord(System.Int32,Core.Data.Entities.MoneyChangeRecord)">
+            <summary>
+            Update  selected record if it exists
+            </summary>
+            <param name="id"></param>
+            <param name="moneyChange"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Core.API.Controllers.TypesController">
+            <summary>
+            API for deal with types of records of money changes
+            </summary>
+        </member>
+        <member name="T:Core.API.Controllers.UsersController">
+            <summary>
+            API for deal with users
+            </summary>
+        </member>
+    </members>
+</doc>

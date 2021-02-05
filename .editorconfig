@@ -1,0 +1,22 @@
+﻿[*.cs]
+
+# Default severity for all analyzer diagnostics
+dotnet_analyzer_diagnostic.severity = error
+
+# IDE0005: Директива using не нужна.
+dotnet_diagnostic.IDE0005.severity = suggestion
+
+# IDE0055: Исправить форматирование
+dotnet_diagnostic.IDE0055.severity = suggestion
+
+# Default severity for analyzer diagnostics with category 'Style'
+dotnet_analyzer_diagnostic.category-Style.severity = suggestion
+
+# CA2201: Не порождайте исключения зарезервированных типов
+dotnet_diagnostic.CA2201.severity = suggestion
+
+# IDE0052: Удалить непрочитанные закрытые члены
+dotnet_diagnostic.IDE0052.severity = warning
+
+# Default severity for analyzer diagnostics with category 'CodeQuality'
+dotnet_analyzer_diagnostic.category-CodeQuality.severity = warning

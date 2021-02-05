@@ -1,0 +1,54 @@
+﻿@page "/recordtypes"
+@inject IUnitOfWork _unit;
+<h3>Hello</h3>
+<a class="btn-sm" href="recordtypes/create"> Create</a>
+@if (_model == null)
+{
+    <LoadingMessage Message="loading record.."></LoadingMessage>
+}
+else { 
+<table>
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var record in _model)
+        {
+            <tr>
+                <td>
+                    @record.Name
+                </td>
+                <td>
+                    <a href="recordtypes/@record.Id" class="btn btn-primary">
+                        <span class="oi-info">
+                            Details
+                        </span>
+                    </a>
+                    <a class="btn btn-danger" @onclick="(()=> DeleteRecordAsync(record.Id))">
+                        <span class="oi-info">Delete</span>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+}
+@code {
+    IEnumerable<MoneyChangeType> _model;
+    protected async override Task OnInitializedAsync()
+    {
+        _model = await _unit.MoneyChangeTypes.GetAllAsync();
+    }
+    public async Task DeleteRecordAsync(int id)
+    {
+        await _unit.MoneyChangeTypes.RemoteAsync(id);
+        _model = _model.Where(items => items.Id != id);
+    }
+}

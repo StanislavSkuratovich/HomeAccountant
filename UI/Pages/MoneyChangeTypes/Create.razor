@@ -1,0 +1,33 @@
+﻿@page "/recordtypes/Create"
+@inject NavigationManager _navigator;
+@inject IUnitOfWork _unit;
+
+<div class="card">
+    <div class="card-body">
+        <h3 class="card-title">Add new record</h3>
+        <EditForm Model="_changeRecord" OnSubmit="HandleCreation">
+            <div class="form-group">
+                <label for="Amount" class="form-label">Enter name</label>
+                <InputText Id="amount" class="form-control" @bind-Value="_changeRecord.Name" />
+            </div>          
+            <button class="btn btn-primary" type="submit">
+                <span class="oi oi-pencil"></span>
+                Submit Changes
+            </button>
+        </EditForm>
+    </div>
+</div>
+
+
+@code {
+    @code {
+        private MoneyChangeType _changeRecord = new MoneyChangeType();
+        private async Task HandleCreation()
+        {
+            var foo = _changeRecord;
+            var responce = await _unit.MoneyChangeTypes.AddAsync(_changeRecord);
+            _navigator.NavigateTo("/recordtypes/");
+        }
+
+    }
+}

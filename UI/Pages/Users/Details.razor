@@ -1,0 +1,56 @@
+﻿@page "/users/{id}"
+@inject IUnitOfWork _unit;
+@inject NavigationManager _navigator;
+Change id: @id
+<button @onclick="BackToList">Back to list</button>
+
+<h3>Details</h3>
+@if (null == user)
+{
+    <LoadingMessage Message="Loading data.."></LoadingMessage>
+}
+else
+{
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    Name
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    @user.UserName
+                </td>
+
+                <td>
+                    <a href="users/edit/@user.Id" class="btn btn-primary">Edit</a>
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+
+}
+
+
+@code {
+    [Parameter]
+    public string id { get; set; }
+    private AppUser user = new AppUser();
+    protected async override Task OnInitializedAsync()
+    {
+        user = await _unit.AppUsers.GetAsync(Convert.ToInt32(id));//todo
+    }
+    private void BackToList()
+    {
+        _navigator.NavigateTo("/users/");
+    }
+    public void GoToEdit()
+    {
+        _navigator.NavigateTo($"/users/edit/{user.Id}");
+    }
+
+}

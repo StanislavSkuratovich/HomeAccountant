@@ -1,0 +1,102 @@
+﻿@page "/records/"
+@inject IUnitOfWork _unit;
+
+<h3>Index</h3>
+<a class="btn-sm" href="records/create"> Create</a>
+
+
+
+
+@if (model == null)
+{
+    <LoadingMessage Message="Loading data..."></LoadingMessage>
+}
+else
+{
+
+<p>
+    All Records<input type="radio" name="All" @onchange="GetAllRecords" />
+    By Month<input type="radio" name="All" @onchange="GetRecordsOfMonth" />
+    All Day<input type="radio" name="All" @onchange="GetRecordsOfDay" />    
+</p>
+<div class="col-sm-10">
+   <input type="date" @bind="chosenDate" />
+</div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    Amount
+                </th>
+
+                <th>
+                    Date
+                </th>
+                <th>
+                    Actions
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var record in model)
+            {
+                <tr>
+                    <td>
+                        @record.Amount
+                    </td>
+                    <td>
+                        @record.Date.Value.ToShortDateString();
+                    </td>
+                    <td>
+                        <a href="records/@record.Id" class="btn btn-primary">
+                            <span class="oi-info">
+                                Details
+                            </span>
+                        </a>
+
+                        @*<a class="btn" @onclick="DeleteRecordAsync"></a>*@
+                        <a class="btn btn-danger" @onclick="(()=> DeleteRecordAsync(record.Id))">
+                            <span class="oi-info">Delete</span>
+                        </a>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}
+
+@code {
+    private IEnumerable<MoneyChangeRecord> model = new List<MoneyChangeRecord>();
+    private DateTime chosenDate;
+    protected async override Task OnInitializedAsync()
+    {
+        chosenDate = DateTime.Now;
+        await GetAllRecords();
+    }
+    public async Task DeleteRecordAsync(int id)
+    {
+        await _unit.MoneyChangeRecords.RemoteAsync(id);
+        model = model.Where(items => items.Id != id);
+    }
+
+    private async Task GetAllRecords()
+    {
+        model = await _unit.MoneyChangeRecords.GetAllAsync();
+    }
+
+    private async Task GetRecordsOfMonth()
+    {
+        var monthlyRecords = await _unit.MoneyChangeRecords.GetByMonth(chosenDate);
+        model = monthlyRecords;
+
+    }
+    private async Task GetRecordsOfDay()// todo next
+    {
+        var dailyRecords= await _unit.MoneyChangeRecords.GetByDay(chosenDate);
+        model = dailyRecords;
+
+    }
+}

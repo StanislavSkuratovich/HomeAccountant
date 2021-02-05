@@ -1,0 +1,20 @@
+﻿@page "/gallows"
+
+@foreach (var item in new string[] { "AspNetCore", "AspNet", "SomeJsThingWhatever" })
+{
+    <div>
+        <input type="radio" name="technology" id="@item" value="@item" @onchange="RadioSelection" checked=@(RadioValue.Equals(item,StringComparison.OrdinalIgnoreCase)) />
+        <label for="@item">@item</label>
+    </div>
+}
+<div>
+    <label>Selected Value is @RadioValue</label>
+</div>
+@code
+{
+    string RadioValue = "aspnetcore";
+    void RadioSelection(ChangeEventArgs args)
+    {
+        RadioValue = args.Value.ToString();
+    }
+}

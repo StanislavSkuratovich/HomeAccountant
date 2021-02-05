@@ -1,0 +1,29 @@
+﻿dotnet ef migrations remove - del the last migration
+dotnet ef database update - update to the last migraton
+dotnet ef migrations add  MigrationName - add a new migration
+ dotnet ef migrations add InitialMiration -o Data/Migrations
+
+ Создать .net core backend для приложения учёта домашних финансов (REST API): (работа с базой данных Entity Framework Code First, rest api, веб-сервер). 
+
+проверка работоспособности через Postman или для демонстрации работы API использовать SwaggerUI. 
+
+    получение списка типа доходов/расходов +
+    добавление/удаление списка типа доходов/расходов +
+    добавление операций с деньгами (расход/доход с указанием типа)+
+    возврат ежедневного итога по операциям+
+    возврат месячного итога+
+
+    https://www.youtube.com/watch?v=Zi0LiE3c4E0
+            using Newtonsoft.Json;
+            DateTime foo = DateTime.Now;
+            string bar = foo.ToShortDateString();
+            DateTime foo2 = Convert.ToDateTime(bar);
+            string oj = JsonConvert.SerializeObject(bar);
+            DateTime foo3 = JsonConvert.DeserializeObject<DateTime>(oj);
+
+https://docs.microsoft.com/en-us/aspnet/web-api/overview/web-api-routing-and-actions/routing-in-aspnet-web-api
+
+https://entityframework.net/knowledge-base/37817522/it-s-possible-to-create-a-dbcontext-interface-or-abstract-class-and-use-it-to-inject-different-dbcontext-objects-
+https://www.jerriepelser.com/blog/resolve-dbcontext-as-interface-in-aspnet5-ioc-container/
+https://stackoverflow.com/questions/36583439/inject-dbcontext-in-asp-net-core-concrete-type-or-interface
+https://metanit.com/sharp/aspnet5/5.2.php
